@@ -1,0 +1,76 @@
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+typedef struct TCenter
+{
+	int x;
+	int y;
+} Center;
+typedef struct TCircle
+{
+	int r;
+	Center center;
+} Circle;
+
+void Print_circles(const Circle* const circles, const int circles_count)
+{
+	cout << endl << "Информация об окружностях (" << circles_count << " шт.) имеет вид:" << endl;
+
+	cout << "-----------------------------------------------" << endl;
+	cout << "     №             Радиус            Центр     " << endl;
+	cout << "-----------------------------------------------" << endl;
+	for (int i = 0; i < circles_count; i++)
+	{
+		cout << setw(6) << (i + 1);
+		cout << setw(19) << circles[i].r;
+		cout << setw(12) << "{" << circles[i].center.x << "; " << circles[i].center.y << "}";
+		cout << endl;
+	}
+	cout << "-----------------------------------------------" << endl;
+}
+
+double Get_distance(const Center center)
+{
+	return (sqrt(pow(center.x, 2.0) + pow(center.y, 2.0)));
+}
+
+int Get_index_circle(const Circle* const circles, const int circles_count)
+{
+	int index_circle = 0;
+	for (int i = 1; i < circles_count; i++)
+	{
+		if (Get_distance(circles[i].center) > Get_distance(circles[index_circle].center))
+		{
+			index_circle = i;
+		}
+	}
+	return index_circle;
+}
+
+int main(void)
+{
+	setlocale(LC_ALL, "Russian");
+
+	const size_t CIRCLES_COUNT = 10;
+	Circle circles[CIRCLES_COUNT];
+
+	cout << "Вам предстоит ввести информацию о " << CIRCLES_COUNT << " окружностях." << endl;
+	for (int i = 0; i < CIRCLES_COUNT; i++)
+	{
+		fflush(stdin);
+		cout << "\t Ввод информации об окружносте № " << (i + 1) << endl;
+		cout << "\t\t - введите радиус: ";
+		cin >> circles[i].r;
+		cout << "\t\t - введите координаты центра (2 целых числа через пробел): ";
+		cin >> circles[i].center.x >> circles[i].center.y;
+		cout << endl;
+	}
+	Print_circles(circles, CIRCLES_COUNT);
+	int index_circle = Get_index_circle(circles, CIRCLES_COUNT);
+
+	cout << endl << "Окружность №" << (index_circle + 1) << " с радиусом = " << circles[index_circle].r << " максимально удалена от начала координат." << endl;
+
+	system("pause");
+	return 0;
+}
