@@ -1,0 +1,62 @@
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include <Windows.h>
+using namespace std;
+
+typedef struct TMountainPeak
+{
+    string name;
+    float height;
+} MountainPeak;
+
+void Print_MountainPeak(MountainPeak* MountainPeaks, const int MountainPeaks_count)
+{
+    cout << "Информация о " << MountainPeaks_count << " горных вершинах: " << endl;
+    cout << "----------------------------------------------------" << endl;
+    cout << "   №       Название вершины            Высота, м    " << endl;
+    cout << "----------------------------------------------------" << endl;
+    for (int i = 0; i < MountainPeaks_count; i++)
+    {
+        cout << setw(4) << (i + 1) << "\t";
+        cout << setw(12) << MountainPeaks[i].name << "\t";
+        cout << setw(20) << MountainPeaks[i].height << endl;
+    }
+    cout << "----------------------------------------------------" << endl;
+}
+string Get_lowestPeak(MountainPeak* MountainPeaks, const int MountainPeaks_count)
+{
+    float min = MountainPeaks[0].height;
+    string k;
+    for (int i = 0; i < MountainPeaks_count; i++)
+    {
+        if (min > MountainPeaks[i].height)
+        {
+            min = MountainPeaks[i].height;
+            k = MountainPeaks[i].name;
+        }
+    }
+    return (k);
+}
+
+int main()
+{
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+    const size_t MOUNTAINPEAKS_COUNT = 3;
+    MountainPeak MountainPeaks[MOUNTAINPEAKS_COUNT];
+    for (int i = 0; i < MOUNTAINPEAKS_COUNT; i++)
+    {
+        cout << "Введите информацию о вершине № " << (i + 1) << endl;
+        cout << "\t\t - введите название вершины: ";
+        cin.ignore();
+        getline(cin, MountainPeaks[i].name);
+        cout << "\t\t - введите высоту вершины: ";
+        cin >> MountainPeaks[i].height;
+        cout << endl;
+    }
+    Print_MountainPeak(MountainPeaks, MOUNTAINPEAKS_COUNT);
+    cout << "Название самой низкой вершины: " << Get_lowestPeak(MountainPeaks, MOUNTAINPEAKS_COUNT) << endl << endl;
+    system("pause");
+    return 0;
+}
