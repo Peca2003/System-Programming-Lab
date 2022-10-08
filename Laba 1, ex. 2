@@ -1,0 +1,26 @@
+#include <iostream>
+#include <string>
+#include <Windows.h>
+
+using namespace std;
+
+int main()
+{
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+
+	string s, s1, s2, s3;
+
+	cout << "Введите первое слово: "; cin >> s;
+	cout << "Введите второе слово: "; cin >> s1;
+	cout << "Введите третье слово: "; cin >> s2;
+	cout << "Введите четвёртое слово: "; cin >> s3;
+
+	string pos;
+
+	pos += s[1]; pos += s1[1]; pos += s2[1]; pos += s3[1];
+
+	cout << "Новая последовательность, состоящая из вторых букв каждого слова: " << pos;
+
+	return 0;
+}
