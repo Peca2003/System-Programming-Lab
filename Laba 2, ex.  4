@@ -1,0 +1,48 @@
+#include <iostream>
+#include <string>
+#include <Windows.h>
+#include <algorithm>
+#include <vector>
+
+using namespace std;
+
+int main()
+{
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+	
+	const size_t city_count = 10;
+	string city[city_count];
+
+	cout << "Введите названия 10-ти городов: " << endl;
+	for (int i = 0; i < city_count; i++)
+	{
+		cout << "\t - введите город №" << i + 1 << ": ";
+		getline(cin, city[i]);
+	}
+
+	const int len = 7;
+
+	vector <string> output_city;
+
+	for (int i = 0; i < city_count; i++)
+		if (city[i].size() > len)
+		output_city.push_back(city[i]);
+		
+	
+	sort(output_city.begin(), output_city.end());
+
+	if (output_city.size() == 0)
+	{
+		cout << endl << "Нет городов, название которых длиннее 7 букв" << endl;
+	}
+	else
+	{
+		cout << endl << "Упорядоченный список городов, название которых которых длиннее 7 букв: " << endl;
+		for (int i = 0; i < output_city.size(); i++)
+		cout << "\t" << output_city[i] << endl;
+
+	}
+	system("pause");
+	return 0;
+}
