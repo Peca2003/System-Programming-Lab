@@ -1,0 +1,136 @@
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include <Windows.h>
+using namespace std;
+
+typedef struct TStudent
+{
+	string name;
+	int room;
+	string comfort;
+	int count;
+	float price;
+} HotelRoom;
+
+void Print_HotelRoom(const HotelRoom* HotelRooms, const int HotelRooms_count)
+{
+	cout << "Информация о " << HotelRooms_count << " гостиничных номерах:" << endl;
+	cout << "--------------------------------------------------------------------------------------------------" << endl;
+	cout << "  №      Название гостиницы       Номер      Комфортность      Количество человек      Стоимость  " << endl;
+	cout << "--------------------------------------------------------------------------------------------------" << endl;
+	for (int i = 0; i < HotelRooms_count; i++)
+	{
+		cout << setw(3) << (i + 1) << "\t";
+		cout << setw(14) << HotelRooms[i].name << "\t";
+		cout << setw(13) << HotelRooms[i].room << "\t";
+		cout << setw(14) << HotelRooms[i].comfort << "\t";
+		cout << setw(15) << HotelRooms[i].count << "\t";
+		cout << setw(22) << HotelRooms[i].price << endl;
+	}
+	cout << "--------------------------------------------------------------------------------------------------" << endl;
+}
+
+int Get_HotelRooms_name_count(HotelRoom HotelRooms[], const int HOTELROOMS_COUNT)
+{
+	int count_name = 0;
+	for (int i = 0; i < HOTELROOMS_COUNT; i++)
+	{
+		if (HotelRooms[i].name[0] == 'Р')
+		{
+			count_name++;
+		}
+	}
+	return count_name;
+}
+
+HotelRoom* Get_HotelRooms_name(HotelRoom HotelRooms[], const int HOTELROOMS_COUNT, const int HotelRooms_name_count)
+{
+	HotelRoom* HotelRooms_name_P = new HotelRoom[HotelRooms_name_count];
+	int index = 0;
+	for (int i = 0; i < HOTELROOMS_COUNT; i++)
+	{
+		if (HotelRooms[i].name[0] == 'Р')
+		{
+			HotelRooms_name_P[index] = HotelRooms[i];
+			index++;
+		}
+	}
+	return HotelRooms_name_P;
+}
+
+void Selection_sort(HotelRoom HotelRooms_name_P[], const int HotelRooms_name_count)
+{
+	HotelRoom swap;
+	int min_index;
+	for (int i = 0; i < (HotelRooms_name_count - 1); i++)
+	{
+		min_index = i;
+		for (int j = (i + 1); j < HotelRooms_name_count; j++)
+		{
+			if (HotelRooms_name_P[j].price < HotelRooms_name_P[min_index].price)
+			{
+				min_index = j;
+			}
+			if (i != min_index)
+			{
+				swap = HotelRooms_name_P[i];
+				HotelRooms_name_P[i] = HotelRooms_name_P[min_index];
+				HotelRooms_name_P[min_index] = swap;
+			}
+		}
+	}
+}
+
+int main()
+{
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+
+	const size_t HOTELROOMS_COUNT = 1;
+	HotelRoom HotelRooms[HOTELROOMS_COUNT];
+	cout << "Вам предстоит ввести информацию о " << HOTELROOMS_COUNT << " гостиницах." << endl;
+	for (int i = 0; i < HOTELROOMS_COUNT; i++)
+	{
+		cout << "\t Ввод информации о гостинице № " << (i + 1) << endl;
+		cout << "\t\t - введите название: ";
+		cin >> HotelRooms[i].name;
+		cout << "\t\t - введите номер: ";
+		cin >> HotelRooms[i].room;
+		cout << "\t\t - введите комфортность: ";
+		cin >> HotelRooms[i].comfort;
+		cout << "\t\t - введите количество человек: ";
+		cin >> HotelRooms[i].count;
+		cout << "\t\t - введите стоимость: ";
+		cin >> HotelRooms[i].price;
+		cout << endl;
+	}
+	Print_HotelRoom(HotelRooms, HOTELROOMS_COUNT);
+
+	int P_count = Get_HotelRooms_name_count(HotelRooms, HOTELROOMS_COUNT);
+	if (P_count > 0)
+	{
+		HotelRoom* HotelRooms_name_P = Get_HotelRooms_name(HotelRooms, HOTELROOMS_COUNT, P_count);
+	}
+	Print_HotelRoom(HotelRooms_name_P, P_count);
+	Selection_sort(HotelRooms_name_P, HotelRooms_name_count);
+	Print_HotelRoom(HotelRooms_name_P, HotelRooms_name_count);
+
+	int HotelRooms_name_count = Get_HotelRooms_name_count(HotelRooms, HOTELROOMS_COUNT);
+	if (HotelRooms_name_count > 0)
+	{
+		cout << "Гостиницы, чьи названия начинаются на букву 'Р': " << endl;
+		HotelRoom* HotelRooms_name_P = Get_HotelRooms_name(HotelRooms, HOTELROOMS_COUNT, HotelRooms_name_count);
+		Print_HotelRoom(HotelRooms_name_P, HotelRooms_name_count);
+		delete[] HotelRooms_name_P;
+		cout << endl;
+	}
+	else
+	{
+		cout << endl << "Нет гостиниц, названия которых начинаются на букву 'Р'";
+	}
+	cout << endl;
+
+	system("pause");
+	return 0;
+}
