@@ -64,7 +64,8 @@ void Selection_sort(HotelRoom HotelRooms_name_P[], const int HotelRooms_name_cou
 {
 	HotelRoom swap;
 	int min_index;
-	for (int i = 0; i < (HotelRooms_name_count - 1); i++)
+
+	for (int i = 0; i < HotelRooms_name_count; i++)
 	{
 		min_index = i;
 		for (int j = (i + 1); j < HotelRooms_name_count; j++)
@@ -73,7 +74,7 @@ void Selection_sort(HotelRoom HotelRooms_name_P[], const int HotelRooms_name_cou
 			{
 				min_index = j;
 			}
-			if (i != min_index)
+			if (min_index != i)
 			{
 				swap = HotelRooms_name_P[i];
 				HotelRooms_name_P[i] = HotelRooms_name_P[min_index];
@@ -88,7 +89,7 @@ int main()
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 
-	const size_t HOTELROOMS_COUNT = 4;
+	const size_t HOTELROOMS_COUNT = 10;
 	HotelRoom HotelRooms[HOTELROOMS_COUNT];
 	cout << "Вам предстоит ввести информацию о " << HOTELROOMS_COUNT << " гостиницах." << endl;
 	for (int i = 0; i < HOTELROOMS_COUNT; i++)
@@ -112,7 +113,7 @@ int main()
 	if (P_count > 0)
 	{
 		HotelRoom* HotelRooms_name_P = Get_HotelRooms_name(HotelRooms, HOTELROOMS_COUNT, P_count);
-
+		cout << "Гостиницы, названия которых начинаются на букву 'Р'" << endl;
 		Print_HotelRoom(HotelRooms_name_P, P_count);
 		Selection_sort(HotelRooms_name_P, P_count);
 		cout << "Гостиницы, названия которых начинаются на букву 'Р', отсортированные по возрастанию" << endl;
