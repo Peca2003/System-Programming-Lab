@@ -29,6 +29,7 @@ void Print_HotelRoom(const HotelRoom* HotelRooms, const int HotelRooms_count)
 		cout << setw(22) << HotelRooms[i].price << endl;
 	}
 	cout << "--------------------------------------------------------------------------------------------------" << endl;
+	cout << endl;
 }
 
 int Get_HotelRooms_name_count(HotelRoom HotelRooms[], const int HOTELROOMS_COUNT)
@@ -87,7 +88,7 @@ int main()
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 
-	const size_t HOTELROOMS_COUNT = 1;
+	const size_t HOTELROOMS_COUNT = 4;
 	HotelRoom HotelRooms[HOTELROOMS_COUNT];
 	cout << "Вам предстоит ввести информацию о " << HOTELROOMS_COUNT << " гостиницах." << endl;
 	for (int i = 0; i < HOTELROOMS_COUNT; i++)
@@ -111,19 +112,12 @@ int main()
 	if (P_count > 0)
 	{
 		HotelRoom* HotelRooms_name_P = Get_HotelRooms_name(HotelRooms, HOTELROOMS_COUNT, P_count);
-	}
-	Print_HotelRoom(HotelRooms_name_P, P_count);
-	Selection_sort(HotelRooms_name_P, HotelRooms_name_count);
-	Print_HotelRoom(HotelRooms_name_P, HotelRooms_name_count);
 
-	int HotelRooms_name_count = Get_HotelRooms_name_count(HotelRooms, HOTELROOMS_COUNT);
-	if (HotelRooms_name_count > 0)
-	{
-		cout << "Гостиницы, чьи названия начинаются на букву 'Р': " << endl;
-		HotelRoom* HotelRooms_name_P = Get_HotelRooms_name(HotelRooms, HOTELROOMS_COUNT, HotelRooms_name_count);
-		Print_HotelRoom(HotelRooms_name_P, HotelRooms_name_count);
+		Print_HotelRoom(HotelRooms_name_P, P_count);
+		Selection_sort(HotelRooms_name_P, P_count);
+		cout << "Гостиницы, названия которых начинаются на букву 'Р', отсортированные по возрастанию" << endl;
+		Print_HotelRoom(HotelRooms_name_P, P_count);
 		delete[] HotelRooms_name_P;
-		cout << endl;
 	}
 	else
 	{
