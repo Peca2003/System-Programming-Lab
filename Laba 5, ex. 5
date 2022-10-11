@@ -9,14 +9,14 @@ typedef struct TCenter
 	int y;
 } Center;
 
-typedef struct TCenter
+typedef struct TCircle
 {
 	int r;
 	Center center;
 } Circle;
 void Print_Circles(const Circle* const Circles, const int Circles_count)
 {
-	cout << "Информация об " << Circles_count << " окржностях:" << endl;
+	cout << "Информация об " << Circles_count << " окружностях:" << endl;
 	cout << "-----------------------------" << endl;
 	cout << "  №      Радиус       Центр  " << endl;
 	cout << "-----------------------------" << endl;
@@ -28,5 +28,69 @@ void Print_Circles(const Circle* const Circles, const int Circles_count)
 		cout << endl;
 	}
 	cout << "-----------------------------" << endl;
+}
+
+int Get_index_Circle(const Circle* const Circles, const int Circles_count)
+{
+	int index_Circle = 0;
+	for (int i = 1; i < Circles_count; i++)
+	{
+		if(abs(Circles[i].center.x) > abs(Circles[index_Circle].center.x))
+		{
+			index_Circle = i;
+		}
+	}
+	return index_Circle;
+}
+
+void Selection_sort(Circle Circles[], const int CIRCLES_COUNT)
+{
+	Circle swap;
+	int min_index;
+	for (int i = 0; i < CIRCLES_COUNT - 1; i++)
+	{
+		min_index = i;
+		for (int j = i + 1; j < CIRCLES_COUNT; j++)
+		{
+			if (Circles[j].r < Circles[min_index].r)
+			{
+				min_index = j;
+			}
+			if (i != min_index)
+			{
+				swap = Circles[i];
+				Circles[i] = Circles[min_index];
+				Circles[min_index] = swap;
+			}
+		}
+	}
+}
+int main()
+{
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+
+	const size_t CIRCLES_COUNT = 3;
+	Circle Circles[CIRCLES_COUNT];
+
+	for (int i = 0; i < CIRCLES_COUNT; i++)
+	{
+		cout << "\t Введите информацию об окружности № " << (i + 1) << endl;
+		cout << "\t\t - введите радиус: ";
+		cin >> Circles[i].r;
+		cout << "\t\t - введите координаты центра (2 целых числа через пробел): ";
+		cin >> Circles[i].center.x >> Circles[i].center.y;
+		cout << endl;
+	}
+	Print_Circles(Circles, CIRCLES_COUNT);
+	int index_Circle = Get_index_Circle(Circles, CIRCLES_COUNT);
+
+	cout << "Радиус окружности №" << (index_Circle + 1) << " = " << Circles[index_Circle].r << ", ее центр максимально удален от оси OY" << endl;
+	
+	Selection_sort(Circles, CIRCLES_COUNT);
 	cout << endl;
+	cout << "Окружности, отсортированные по возрастанию радиуса" << endl;
+	Print_Circles(Circles, CIRCLES_COUNT);
+	system("pause");
+	return 0;
 }
