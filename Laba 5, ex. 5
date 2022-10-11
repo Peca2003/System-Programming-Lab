@@ -23,8 +23,8 @@ void Print_Circles(const Circle* const Circles, const int Circles_count)
 	for (int i = 0; i < Circles_count; i++)
 	{
 		cout << setw(3) << (i + 1) << "\t";
-		cout << setw(14) << Circles[i].r << "\t";
-		cout << setw(13) << "{" << Circles[i].center.x << "; " << Circles[i].center.y << "}" << "\t";
+		cout << setw(6) << Circles[i].r << "\t";
+		cout << setw(6) << "{" << Circles[i].center.x << "; " << Circles[i].center.y << "}" << "\t";
 		cout << endl;
 	}
 	cout << "-----------------------------" << endl;
@@ -35,7 +35,7 @@ int Get_index_Circle(const Circle* const Circles, const int Circles_count)
 	int index_Circle = 0;
 	for (int i = 1; i < Circles_count; i++)
 	{
-		if(abs(Circles[i].center.x) > abs(Circles[index_Circle].center.x))
+		if (abs(Circles[i].center.x) > abs(Circles[index_Circle].center.x))
 		{
 			index_Circle = i;
 		}
@@ -56,12 +56,12 @@ void Selection_sort(Circle Circles[], const int CIRCLES_COUNT)
 			{
 				min_index = j;
 			}
-			if (i != min_index)
-			{
-				swap = Circles[i];
-				Circles[i] = Circles[min_index];
-				Circles[min_index] = swap;
-			}
+		}
+		if (i != min_index)
+		{
+			swap = Circles[i];
+			Circles[i] = Circles[min_index];
+			Circles[min_index] = swap;
 		}
 	}
 }
@@ -70,7 +70,7 @@ int main()
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 
-	const size_t CIRCLES_COUNT = 3;
+	const size_t CIRCLES_COUNT = 10;
 	Circle Circles[CIRCLES_COUNT];
 
 	for (int i = 0; i < CIRCLES_COUNT; i++)
@@ -84,12 +84,10 @@ int main()
 	}
 	Print_Circles(Circles, CIRCLES_COUNT);
 	int index_Circle = Get_index_Circle(Circles, CIRCLES_COUNT);
-
 	cout << "Радиус окружности №" << (index_Circle + 1) << " = " << Circles[index_Circle].r << ", ее центр максимально удален от оси OY" << endl;
-	
-	Selection_sort(Circles, CIRCLES_COUNT);
 	cout << endl;
 	cout << "Окружности, отсортированные по возрастанию радиуса" << endl;
+	Selection_sort(Circles, CIRCLES_COUNT);
 	Print_Circles(Circles, CIRCLES_COUNT);
 	system("pause");
 	return 0;
