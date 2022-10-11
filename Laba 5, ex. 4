@@ -74,13 +74,14 @@ void Selection_sort(HotelRoom HotelRooms_name_P[], const int HotelRooms_name_cou
 			{
 				min_index = j;
 			}
-			if (min_index != i)
-			{
-				swap = HotelRooms_name_P[i];
-				HotelRooms_name_P[i] = HotelRooms_name_P[min_index];
-				HotelRooms_name_P[min_index] = swap;
-			}
 		}
+		if (i != min_index)
+		{
+			swap = HotelRooms_name_P[i];
+			HotelRooms_name_P[i] = HotelRooms_name_P[min_index];
+			HotelRooms_name_P[min_index] = swap;
+		}
+		
 	}
 }
 
@@ -116,7 +117,7 @@ int main()
 		cout << "Гостиницы, названия которых начинаются на букву 'Р'" << endl;
 		Print_HotelRoom(HotelRooms_name_P, P_count);
 		Selection_sort(HotelRooms_name_P, P_count);
-		cout << "Гостиницы, названия которых начинаются на букву 'Р', отсортированные по возрастанию" << endl;
+		cout << "Гостиницы, названия которых начинаются на букву 'Р', отсортированные по возрастанию стоимости" << endl;
 		Print_HotelRoom(HotelRooms_name_P, P_count);
 		delete[] HotelRooms_name_P;
 	}
