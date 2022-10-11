@@ -1,0 +1,32 @@
+#include <iostream>
+#include <iomanip>
+#include <Windows.h>
+using namespace std;
+
+typedef struct TCenter
+{
+	int x;
+	int y;
+} Center;
+
+typedef struct TCenter
+{
+	int r;
+	Center center;
+} Circle;
+void Print_Circles(const Circle* const Circles, const int Circles_count)
+{
+	cout << "Информация об " << Circles_count << " окржностях:" << endl;
+	cout << "-----------------------------" << endl;
+	cout << "  №      Радиус       Центр  " << endl;
+	cout << "-----------------------------" << endl;
+	for (int i = 0; i < Circles_count; i++)
+	{
+		cout << setw(3) << (i + 1) << "\t";
+		cout << setw(14) << Circles[i].r << "\t";
+		cout << setw(13) << "{" << Circles[i].center.x << "; " << Circles[i].center.y << "}" << "\t";
+		cout << endl;
+	}
+	cout << "-----------------------------" << endl;
+	cout << endl;
+}
