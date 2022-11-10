@@ -1,0 +1,41 @@
+#include <iostream>
+#include <string>
+#include <Windows.h>
+using namespace std;
+int main()
+{
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+	string text;
+	cout << "Введите текст: " << endl;
+	getline(cin, text);
+	const string MAX = "Максимальный";
+	const string MIN = "Минимальный";
+	size_t indexFindWord = text.find(MAX);
+	while (indexFindWord < text.size())
+	{
+		text.erase(indexFindWord, MAX.size());
+		text.insert(indexFindWord, MIN);
+		indexFindWord = text.find(MAX);
+	}
+	const string FIO = "Иванов И.И.";
+	indexFindWord = text.find(FIO);
+	while (indexFindWord < text.size())
+	{
+		text.erase(indexFindWord, FIO.size());
+		indexFindWord = text.find(FIO);
+	}
+	int count = 0;
+	for (int i = 0; i < text.size(); i++)
+	{
+		if (text[i] == '.' || text[i] == '?' || text[i] == '!')
+		{
+			count++;
+		}
+	}
+	cout << "Обработанный текст: " << text << endl;
+	cout << "Количество предложений: " << count << endl;
+	cout << endl;
+	system("pause");
+	return 0;
+}
