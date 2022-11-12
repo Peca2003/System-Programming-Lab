@@ -30,5 +30,6 @@ int main()
 		if (text[i] == 'A') { count++; }
 	}
 	cout << "Количество слов, начинающихся на букву <А>: " << count;
+	system("pause");
 	return 0;
 }
